@@ -21,18 +21,15 @@ int main()
         u[i] = 2;
     }
 
-    //cout << "Output of u before:\n" << u << endl;
-
-    Eigen::VectorXd v;
-    v.setLinSpaced(nx,0,2);
-    //cout << v << endl;
+    Eigen::VectorXd x; // A vector to hold our x values
+    x.setLinSpaced(nx,0,2);
 
 
     ofstream writefile("data-before.dat", ios::out | ios::trunc);
 
     for (int j=0;j<nx;j++)
     {
-        writefile << v[j] << "\t" << u[j] << endl;
+        writefile << x[j] << "\t" << u[j] << endl;
     }
     writefile.close();
 
@@ -42,7 +39,7 @@ int main()
     {
         un << u; // Copy the contents of u into un
 
-        for (int k=1;k<nt;k++)
+        for (int k=1;k<nx;k++)
         {
             u[k] = un[k]-c*dt/dx*(un[k]-un[k-1]);
         }
@@ -50,18 +47,13 @@ int main()
 
     un.resize(0); // Frees the memory
 
-    //cout << "Output of u after:\n" << u << endl; // Debug stuff
-
     ofstream writefile2("data-after.dat", ios::out | ios::trunc);
 
     for (int k=0;k<nx;k++)
     {
-        writefile2 << v[k] << "\t" << u[k] << endl;
+        writefile2 << x[k] << "\t" << u[k] << endl;
     }
     writefile2.close();
 
     u.resize(0); // Free the memory
-
-
 }
-

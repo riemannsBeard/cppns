@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Eigen/Dense>
 #include <fstream>
+#include <mgl2/mgl.h>
 
 using namespace std;
 
@@ -56,4 +57,19 @@ int main()
     writefile2.close();
 
     u.resize(0); // Free the memory
+
+    mglGraph gr; // Start mgl graph object that holds all graph stuff
+
+    mglData y("data-before.dat"); // Load one set of data
+    mglData z("data-after.dat"); // Load the other, I really better stick both of these in a single file... along with all the other steps.
+
+    gr.SetOrigin(0,0,0);
+    gr.Title("Plot");
+    gr.Box(); // Not sure what this does...
+    gr.Plot(y); // Puts the data into the graph
+    gr.Plot(z); // Same as previous line
+    gr.WritePNG("test.png"); // Write out to PNG file
+
+    return 0;
+
 }

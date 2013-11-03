@@ -1,4 +1,3 @@
-set(CMAKE_CXX_FLAGS "-lmgl")
+add_executable(lin1d lin1d.cpp)
 
-add_executable(${PROJECT_NAME} lin1d.cpp)
-configure_file(lin1d.gp lin1d.gp COPYONLY)
+target_link_libraries(lin1d mgl)

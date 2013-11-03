@@ -25,7 +25,6 @@ int main()
     Eigen::VectorXd x; // A vector to hold our x values
     x.setLinSpaced(nx,0,2);
 
-
     ofstream writefile("data-before.dat", ios::out | ios::trunc);
 
     for (int j=0;j<nx;j++)
@@ -62,13 +61,19 @@ int main()
 
     mglData y("data-before.dat"); // Load one set of data
     mglData z("data-after.dat"); // Load the other, I really better stick both of these in a single file... along with all the other steps.
+    mglData xdat=y.SubData(0), ydat=y.SubData(1), y2dat=z.SubData(1);
 
     gr.SetOrigin(0,0,0);
-    gr.Title("Plot");
-    gr.Box(); // Not sure what this does...
-    gr.Plot(y); // Puts the data into the graph
-    gr.Plot(z); // Same as previous line
-    gr.WritePNG("test.png"); // Write out to PNG file
+    gr.Title("Linear 1 Dimension");
+    gr.Box(); // Bounding box
+    gr.AddLegend("Initial Condition", "bd"); // Pack into legend
+    gr.AddLegend("Final Condition","g*");
+    gr.Legend(); // Add legend to plot
+    gr.SetRanges(0,2,0,3);
+    gr.Axis(); // Creates ticks, I think
+    gr.Plot(xdat,ydat,"bd"); // Puts the data into the graph
+    gr.Plot(xdat,y2dat,"g*"); // Same as previous line
+    gr.WriteGIF("lin1d.gif");
 
     return 0;
 

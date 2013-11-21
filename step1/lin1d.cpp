@@ -1,11 +1,8 @@
-#include <iostream>
-#include <Eigen/Dense>
-#include <fstream>
-#include <mgl2/mgl.h>
+#include "lin1d.h"
 
 using namespace std;
 
-int main()
+void lin1d()
 {
 
     double nx = 41; // Number of points
@@ -74,7 +71,5 @@ int main()
     gr.Plot(xdat,ydat,"bd"); // Puts the data into the graph
     gr.Plot(xdat,y2dat,"g*"); // Same as previous line
     gr.WriteGIF("lin1d.gif");
-
-    return 0;
 
 }

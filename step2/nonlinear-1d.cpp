@@ -1,11 +1,8 @@
-#include <iostream>
-#include <Eigen/Dense>
-#include <mgl2/mgl.h>
-#include <fstream>
+#include "nonlinear-1d.h"
 
 using namespace std;
 
-int main()
+void nonlinaer1d()
 {
     int nx = 41;
     double dx = 2/(double (nx)-1);
@@ -62,6 +59,4 @@ int main()
     gr.Plot(xdat,ydat,"r*"); // Same as previous line
     gr.WriteGIF("nonlin1d.gif");
 
-
-    return 0;
 }

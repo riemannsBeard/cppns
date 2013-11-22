@@ -1,6 +1,6 @@
 #include <iostream>
-#include "step1/lin1d.h"
-#include "step2/nonlinear-1d.h"
+#include "lin1d.h"
+#include "nonlin1d.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ int main()
                 break;
 
                 case 2:
-                    nonlinear1d();
+                    nonlin1d();
                 break;
 
                 default:

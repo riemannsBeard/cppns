@@ -1,8 +1,8 @@
-#include "nonlinear-1d.h"
+#include "nonlin1d.h"
 
 using namespace std;
 
-void nonlinaer1d()
+void nonlin1d()
 {
     int nx = 41;
     double dx = 2/(double (nx)-1);
@@ -38,15 +38,16 @@ void nonlinaer1d()
         }
     }
 
+    mkdir("step2",0755); //0755 is the permissions code. This works on linux only
 
-    ofstream writefile2("data.dat", ios::out | ios::trunc);
+    ofstream writefile2("step2/data.dat", ios::out | ios::trunc);
     writefile2 << u << endl;
     writefile2.close();
 
 
     mglGraph gr; // Start mgl graph object that holds all graph stuff
 
-    mglData y("data.dat"); // Load one set of data
+    mglData y("step2/data.dat"); // Load one set of data
     mglData xdat=y.SubData(0), ydat=y.SubData(21);
 
     gr.SetOrigin(0,0,0);
@@ -57,6 +58,6 @@ void nonlinaer1d()
     gr.SetRanges(0,2,0,3);
     gr.Axis(); // Creates ticks, I think
     gr.Plot(xdat,ydat,"r*"); // Same as previous line
-    gr.WriteGIF("nonlin1d.gif");
+    gr.WriteGIF("step2/nonlin1d.gif");
 
 }

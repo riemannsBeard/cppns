@@ -7,4 +7,27 @@ The original was written by Lorena Barba under the title ["CFD Python: 12 steps 
 [Attribution-NonCommercial-ShareAlike 3.0 Unported \(CC BY-NC-SA 3.0\)].
 
 Requires MathGL 2.1 (NOTE: Ubuntu repositories have MathGL 1.x, you need to compile from source).
-Also requires Eigen3.
+Also requires Eigen3. And CMake.
+
+Currently only compiles for linux. Minimal effort should be required to make it work for Windows.
+
+Compiling:
+
+Downloading and compiling this program can be done by doing the following:
+
+
+	git clone https://github.com/jcc242/navier-stokes-steps.git #Downloads the code from github
+	mkdir cppns-build #Creates a build directory. CMake likes out of source builds
+	cd cppns-build #Change directory to the build directory
+	cmake ../navier-stokes-steps.git #Tells cmake where the source files are, also generates the makefiles
+	make #Compiles
+
+After that run the program created, cppns
+
+	./cppns
+
+You will be prompted for a number corresponding to which step you wish to run. The results are output into a folder corresponding to the step name (i.e. the plot and data for step 2 are created in the folder step2/).
+
+Please let me know on github if you have any issues.
+
+Further instructions on the dependencies are forthcoming.

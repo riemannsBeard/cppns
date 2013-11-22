@@ -22,7 +22,9 @@ void lin1d()
     Eigen::VectorXd x; // A vector to hold our x values
     x.setLinSpaced(nx,0,2);
 
-    ofstream writefile("data-before.dat", ios::out | ios::trunc);
+    mkdir("step1",0755); //0755 is the permissions code. This works on linux only
+
+    ofstream writefile("step1/data-before.dat", ios::out | ios::trunc);
 
     for (int j=0;j<nx;j++)
     {
@@ -44,7 +46,7 @@ void lin1d()
 
     un.resize(0); // Frees the memory
 
-    ofstream writefile2("data-after.dat", ios::out | ios::trunc);
+    ofstream writefile2("step1/data-after.dat", ios::out | ios::trunc);
 
     for (int k=0;k<nx;k++)
     {
@@ -56,8 +58,8 @@ void lin1d()
 
     mglGraph gr; // Start mgl graph object that holds all graph stuff
 
-    mglData y("data-before.dat"); // Load one set of data
-    mglData z("data-after.dat"); // Load the other, I really better stick both of these in a single file... along with all the other steps.
+    mglData y("step1/data-before.dat"); // Load one set of data
+    mglData z("step1/data-after.dat"); // Load the other, I really better stick both of these in a single file... along with all the other steps.
     mglData xdat=y.SubData(0), ydat=y.SubData(1), y2dat=z.SubData(1);
 
     gr.SetOrigin(0,0,0);
@@ -70,6 +72,6 @@ void lin1d()
     gr.Axis(); // Creates ticks, I think
     gr.Plot(xdat,ydat,"bd"); // Puts the data into the graph
     gr.Plot(xdat,y2dat,"g*"); // Same as previous line
-    gr.WriteGIF("lin1d.gif");
+    gr.WriteGIF("step1/lin1d.gif");
 
 }

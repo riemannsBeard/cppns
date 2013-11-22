@@ -1,0 +1,20 @@
+
+
+#add_subdirectory(utils)
+
+set(oned_source_files
+    lin1d.cpp
+    lin1d.h
+    nonlin1d.cpp
+    nonlin1d.h
+    )
+    
+#add_library(oned %{oned_source_files}) # Might use this later...
+
+set(core_source_files
+    main.cpp)
+
+add_executable(cppns ${core_source_files} ${oned_source_files})
+
+#target_link_libraries(cppns utils)
+target_link_libraries(cppns mgl)

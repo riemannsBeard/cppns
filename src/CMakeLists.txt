@@ -1,6 +1,6 @@
 
 
-#add_subdirectory(utils)
+add_subdirectory(utils)
 
 set(oned_source_files
     lin1d.cpp

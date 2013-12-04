@@ -1,4 +1,4 @@
-#include "nonlin1d.h"
+#include "diffusion1d.h"
 
 using namespace std;
 
@@ -30,20 +30,27 @@ void diffusion1d()
 
     Eigen::VectorXd un(nx);
 
-    char dir[80] = "step3/";
+    string dir = "step3/";
 
-    mkdir(dir,0755); //Make a folder to store results in
+    mkdir(dir.c_str(),0755); //Make a folder to store results in
+
+    string step;
 
     for (int j=0;j<nt;j++) // From column 2 (Eigen is 0-indexed, so really column 3!) to end (of matrix, nt+2)
     {
         un << u;
-        char step = char(dt*(j+1));
+        ostringstream s;
+        s << (dt*(j+1)); // Some nasty code to turn our current step into a string
+        step = s.str();
+
         cout << step << endl;
 
         for (int k=1;k<nx;k++) // From row 1
         {
             u(k) = un(k) + nu*dt/pow(dx,2)*(un(k+1)-2*un(k)+un(k-1));
-            ofstream writedata(strcat(strcat(dir,step),".dat"), ios::out | ios::trunc);
+
+
+            ofstream writedata((dir + step + ".dat").c_str(), ios::out | ios::trunc);
             writedata << u << endl;
             writedata.close();
         }
@@ -54,7 +61,7 @@ void diffusion1d()
 
     mglData x;
     x.Fill(0,2,'x');
-    mglData y(strcat(strcat(dir,step),".dat")); // Load one set of data
+    mglData y((dir + step + ".dat").c_str()); // Load one set of data
     //mglData xdat=y.SubData(0), ydat=y.SubData(21); // Deprecated?
 
     gr.SetOrigin(0,0,0);
@@ -65,6 +72,6 @@ void diffusion1d()
     gr.SetRanges(0,2,0,3);
     gr.Axis(); // Creates ticks, I think
     gr.Plot(x,y,"r*"); // Same as previous line
-    gr.WriteGIF("step2/nonlin1d.gif");
+    gr.WriteGIF("step3/diffusion1d.gif");
 
 }

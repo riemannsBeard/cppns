@@ -45,9 +45,9 @@ void diffusion1d()
 
         cout << step << endl;
 
-        for (int k=1;k<nx;k++) // From row 1
+        for (int k=1;k<nx-1;k++) // From row 1
         {
-            u(k) = un(k) + nu*dt/pow(dx,2)*(un(k+1)-2*un(k)+un(k-1));
+            u(k) = un(k) + ((nu*dt)/(pow(dx,2)))*(un(k+1)-(2*un(k))+un(k-1));
 
 
             ofstream writedata((dir + step + ".dat").c_str(), ios::out | ios::trunc);

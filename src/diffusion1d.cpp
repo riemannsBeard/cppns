@@ -24,9 +24,6 @@ void diffusion1d()
 
     Eigen::VectorXd x(nx); // This will set our x values to the first column in the matrix
     x.setLinSpaced(nx,0,2); // linearly spaced values between 0 and 2
-    ofstream writex((dir + "x" + ".dat").c_str(), ios::out | ios::trunc);
-    writex << x << endl;
-    writex.close();
 
     Eigen::VectorXd ic(r); // initial conditions block matrix
     // Needs to be only nt+1, because we don't want to modify our newly created x column
@@ -47,42 +44,18 @@ void diffusion1d()
     {
         un << u;
 
-        ostringstream s;
-        s << (dt*(j+1)); // Some nasty code to turn our current step into a string
-        step = s.str();
-
         for (int k=1;k<nx-1;k++) // From row 1
         {
             u(k) = un(k) + ((nu*dt)/(dx*dx))*(un(k+1)-(2*un(k))+un(k-1));
 
         }
 
-        ofstream writedata((dir + step + ".dat").c_str(), ios::out | ios::trunc);
-        writedata << u << endl;
-        writedata.close();
-
     }
 
-    ofstream writedata((dir + "gnuplot" + ".dat").c_str(), ios::out | ios::trunc);
+    ofstream writexdata((dir + "output.dat").c_str(), ios::out | ios::trunc);
     for (int i=0;i<nx;i++){
-        writedata << x(i) << "\t" << u(i) << endl;
+        writexdata << x(i) << "\t" << u(i) << endl;
     }
 
-    writedata.close();
-
-    mglGraph gr; // Start mgl graph object that holds all graph stuff
-
-    mglData y((dir + step + ".dat").c_str()); // Load one set of data
-    mglData z((dir + "x" + ".dat").c_str()); // Load one set of data
-
-    gr.SetOrigin(0,0,0);
-    gr.Title("Non-Linear 1 Dimension");
-    gr.Box(); // Bounding box
-    gr.AddLegend("Final Condition","r*");
-    gr.Legend(); // Add legend to plot
-    gr.SetRanges(0,2,0,3);
-    gr.Axis(); // Creates ticks, I think
-    gr.Plot(z,y,"r*"); // Same as previous line
-    gr.WriteGIF("step3/diffusion1d.gif");
-
+    writexdata.close();
 }

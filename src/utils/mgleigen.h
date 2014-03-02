@@ -4,7 +4,7 @@
 #include <mgl2/mgl.h>
 #include <Eigen/Dense>
 
-class mglEigen : public mglDataA, public Eigen::Matrix
+class mglEigen : public mglDataA
 {
 public:
     double nx;
@@ -19,7 +19,7 @@ public:
     double GetNy() const;
     double GetNz() const;
 
-    void Create(double mn, double my=1, double mz=1);
+    void Create(double mx, double my=1, double mz=1);
 
     double Maximal() const;
     double Minimal() const;

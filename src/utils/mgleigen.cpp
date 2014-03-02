@@ -21,7 +21,7 @@ double mglEigen::GetNz() const
     return nz;
 }
 
-void mglEigen::Create(double mn, double my, double mz)
+void mglEigen::Create(double mx, double my, double mz)
 {
     nx=mx;
     ny=my;
@@ -31,7 +31,7 @@ void mglEigen::Create(double mn, double my, double mz)
         delete []m;
     }
 
-    Eigen::Matrix m(nx,ny);
+    Eigen::MatrixXd m(nx,ny);
 }
 
 double mglEigen::Maximal() const
@@ -47,20 +47,29 @@ double mglEigen::Minimal() const
 
 double mglEigen::v(double i, double j, double k) const
 {
+    if(j==0) {
+        return m(i);
+    } else {
+        return m(i,j);
+    }
 }
 
 double mglEigen::vthr(double i) const
 {
+    return m.data();
 }
 
 double mglEigen::dvx(double i, double j, double k) const
 {
+    return 0; //Need to figure out how to implement this...
 }
 
 double mglEigen::dvy(double i, double j, double k) const
 {
+    return 0;
 }
 
 double mglEigen::dvz(double i, double j, double k) const
 {
+    return 0;
 }

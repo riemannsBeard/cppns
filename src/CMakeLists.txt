@@ -7,6 +7,8 @@ set(oned_source_files
     lin1d.h
     nonlin1d.cpp
     nonlin1d.h
+    diffusion1d.cpp
+    diffusion1d.h
     )
     
 #add_library(oned %{oned_source_files}) # Might use this later...

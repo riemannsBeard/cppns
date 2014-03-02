@@ -44,20 +44,4 @@ void nonlin1d()
     writefile2 << u << endl;
     writefile2.close();
 
-
-    mglGraph gr; // Start mgl graph object that holds all graph stuff
-
-    mglData y("step2/data.dat"); // Load one set of data
-    mglData xdat=y.SubData(0), ydat=y.SubData(21);
-
-    gr.SetOrigin(0,0,0);
-    gr.Title("Non-Linear 1 Dimension");
-    gr.Box(); // Bounding box
-    gr.AddLegend("Final Condition","r*");
-    gr.Legend(); // Add legend to plot
-    gr.SetRanges(0,2,0,3);
-    gr.Axis(); // Creates ticks, I think
-    gr.Plot(xdat,ydat,"r*"); // Same as previous line
-    gr.WriteGIF("step2/nonlin1d.gif");
-
 }

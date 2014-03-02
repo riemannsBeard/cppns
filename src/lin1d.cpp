@@ -56,22 +56,6 @@ void lin1d()
 
     u.resize(0); // Free the memory
 
-    mglGraph gr; // Start mgl graph object that holds all graph stuff
 
-    mglData y("step1/data-before.dat"); // Load one set of data
-    mglData z("step1/data-after.dat"); // Load the other, I really better stick both of these in a single file... along with all the other steps.
-    mglData xdat=y.SubData(0), ydat=y.SubData(1), y2dat=z.SubData(1);
-
-    gr.SetOrigin(0,0,0);
-    gr.Title("Linear 1 Dimension");
-    gr.Box(); // Bounding box
-    gr.AddLegend("Initial Condition", "bd"); // Pack into legend
-    gr.AddLegend("Final Condition","g*");
-    gr.Legend(); // Add legend to plot
-    gr.SetRanges(0,2,0,3);
-    gr.Axis(); // Creates ticks, I think
-    gr.Plot(xdat,ydat,"bd"); // Puts the data into the graph
-    gr.Plot(xdat,y2dat,"g*"); // Same as previous line
-    gr.WriteGIF("step1/lin1d.gif");
 
 }

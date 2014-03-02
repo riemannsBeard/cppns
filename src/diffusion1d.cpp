@@ -35,7 +35,6 @@ void diffusion1d()
     Eigen::VectorXd un(nx);
 
 
-
     mkdir(dir.c_str(),0755); //Make a folder to store results in
 
     string step;

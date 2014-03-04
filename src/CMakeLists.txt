@@ -15,5 +15,8 @@ set(oned_source_files
 
 set(core_source_files
     main.cpp)
+    
 include_directories(/usr/include/eigen3/)
 add_executable(cppns ${core_source_files} ${oned_source_files})
+add_subdirectory(util)
+target_link_libraries(cppns util)

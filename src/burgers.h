@@ -6,8 +6,10 @@
 #include <math.h>
 #include <fstream>
 #include <sys/stat.h>
+#include <string>
+//#include "util/utilities.h"
 
 void burgers();
-double u(double t, double x, double nu);
+double ufunc(double t, double x, double nu);
 
 #endif // BURGERS_H

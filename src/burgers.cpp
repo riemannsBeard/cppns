@@ -33,13 +33,9 @@ void burgers()
   
   y.setZero(nx,1);
   yn.setZero(nx,1);
-  
-  std::cout << dt/dx << std::endl;
-  std::cout << nu*dt/pow(dx,2) << std::endl;
    
   for(int i=0; i<nx;i++)
   {
-    //std::cout << ufunc(t,x(i,0),nu) << std::endl;
     y(i,0) = ufunc(t,x(i,0),nu); // Uses our function we defined
   }
   
@@ -53,27 +49,17 @@ void burgers()
     {
       if (k<1) {
 	y(k) = yn(k) - yn(k) * dt/dx * (yn(k) - yn(nx-1)) + nu*dt/pow(dx,2)*(yn(k+1)-2*yn(k)+yn(nx-1));
-	
-	//std::cout << "K is: " << k << " y: " << y(k,0) << " While j is: " << j << std::endl;
-	
       } else if (k>=1) {
-	y(k) = yn(k) - yn(k) * dt/dx * (yn(k) - yn(k-1)) + nu*dt/pow(dx,2)*(yn(k+1)-2*yn(k)+yn(k-1));
-	
-	//std::cout << "K is greater than 0: " << y(k,0) << std::endl;
-	
+	y(k) = yn(k) - yn(k) * dt/dx * (yn(k) - yn(k-1)) + nu*dt/pow(dx,2)*(yn(k+1)-2*yn(k)+yn(k-1));	
       } else {
 	std::cout << "Error determining previous row." << std::endl;
 	return;
       }
-	
       
     }
     
     y(nx-1) = yn(nx-1) - yn(nx-1) * dt/dx * (yn(nx-1)-yn(nx-2)) + nu*dt/pow(dx,2)*(yn(0)-2*yn(nx-1)+yn(nx-2));
-    //std::cout << "Here is the new y last: " << y(nx-1,0) << std::endl;
   }
-  
-  //std::cout << y << std::endl;
   
   ofstream writexdata((dir + "output.dat").c_str(), ios::out | ios::trunc);
   

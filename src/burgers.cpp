@@ -18,7 +18,7 @@ void burgers()
   double nt = 100;
   double dx = 2*PI/(nx-1);
   double nu = .07;
-  double dt = dx/nu;
+  double dt = dx*nu;
   double t = 0;
   
   // Make an output folder
@@ -34,10 +34,8 @@ void burgers()
   y.setZero(nx,1);
   yn.setZero(nx,1);
   
-  //std::cout << "X Cols: " << x.cols() << " X rows: " << x.rows() << std::endl;
-  //std::cout << "Y Cols: " << y.cols() << " Y rows: " << y.rows() << std::endl;
-  
-  //std::cout << "X Col1: "  << x(1,0) << std::endl;
+  std::cout << dt/dx << std::endl;
+  std::cout << nu*dt/pow(dx,2) << std::endl;
    
   for(int i=0; i<nx;i++)
   {
@@ -45,8 +43,8 @@ void burgers()
     y(i,0) = ufunc(t,x(i,0),nu); // Uses our function we defined
   }
   
-  //std::cout << y << std::endl;
-  double ynvalue;
+  
+  
   for (int j=0; j<nt; j++)
   {
     yn = y; // By default C++ copies the contents, we have to use pointers if we wanted two variables with the same address space
@@ -54,9 +52,15 @@ void burgers()
     for (int k=0; k<(nx-1); k++)
     {
       if (k<1) {
-	y(k,0) = yn(k,0) - yn(k,0) * dt/dx * (yn(k,0) - yn.bottomRows(0)) + nu*dt/pow(dx,2)*(yn(k+1,0)-2*yn(k,0)+yn.bottomRows(0));
+	y(k) = yn(k) - yn(k) * dt/dx * (yn(k) - yn(nx-1)) + nu*dt/pow(dx,2)*(yn(k+1)-2*yn(k)+yn(nx-1));
+	
+	//std::cout << "K is: " << k << " y: " << y(k,0) << " While j is: " << j << std::endl;
+	
       } else if (k>=1) {
-	y(k,0) = yn(k,0) - yn(k,0) * dt/dx * (yn(k,0) - yn(k-1)) + nu*dt/pow(dx,2)*(yn(k+1,0)-2*yn(k,0)+yn(k-1));
+	y(k) = yn(k) - yn(k) * dt/dx * (yn(k) - yn(k-1)) + nu*dt/pow(dx,2)*(yn(k+1)-2*yn(k)+yn(k-1));
+	
+	//std::cout << "K is greater than 0: " << y(k,0) << std::endl;
+	
       } else {
 	std::cout << "Error determining previous row." << std::endl;
 	return;
@@ -65,19 +69,18 @@ void burgers()
       
     }
     
-    y.bottomRows(0) = yn.bottomRows(0) - yn.bottomRows(0) * dt/dx * (yn.bottomRows(0)-yn.bottomRows(1)) + nu*dt/pow(dx,2)*(yn(0,0)-2*yn.bottomRows(0)+yn.bottomRows(2));
-    
+    y(nx-1) = yn(nx-1) - yn(nx-1) * dt/dx * (yn(nx-1)-yn(nx-2)) + nu*dt/pow(dx,2)*(yn(0)-2*yn(nx-1)+yn(nx-2));
+    //std::cout << "Here is the new y last: " << y(nx-1,0) << std::endl;
   }
   
-  std::cout << y << std::endl;
+  //std::cout << y << std::endl;
   
-    
-  /* 
-    ofstream writexdata((dir + "output.dat").c_str(), ios::out | ios::trunc);
-    for (int i=0;i<nx;i++){
-        writexdata << x(i) << "\t" << y(i) << endl;
-    }
+  ofstream writexdata((dir + "output.dat").c_str(), ios::out | ios::trunc);
+  
+  for (int i=0;i<nx;i++){
+      writexdata << x(i) << "\t" << y(i) << endl;
+  }
 
-    writexdata.close(); */
+  writexdata.close();
   
 }

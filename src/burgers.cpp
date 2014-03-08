@@ -34,16 +34,50 @@ void burgers()
   y.setZero(nx,1);
   yn.setZero(nx,1);
   
-  for(int i; i<nx;i++)
+  //std::cout << "X Cols: " << x.cols() << " X rows: " << x.rows() << std::endl;
+  //std::cout << "Y Cols: " << y.cols() << " Y rows: " << y.rows() << std::endl;
+  
+  //std::cout << "X Col1: "  << x(1,0) << std::endl;
+   
+  for(int i=0; i<nx;i++)
   {
-    y(i,1) = ufunc(t,x(i,1),nu); // Uses our function we defined
+    //std::cout << ufunc(t,x(i,0),nu) << std::endl;
+    y(i,0) = ufunc(t,x(i,0),nu); // Uses our function we defined
   }
   
+  //std::cout << y << std::endl;
+  double ynvalue;
+  for (int j=0; j<nt; j++)
+  {
+    yn = y; // By default C++ copies the contents, we have to use pointers if we wanted two variables with the same address space
+    
+    for (int k=0; k<(nx-1); k++)
+    {
+      if (k<1) {
+	y(k,0) = yn(k,0) - yn(k,0) * dt/dx * (yn(k,0) - yn.bottomRows(0)) + nu*dt/pow(dx,2)*(yn(k+1,0)-2*yn(k,0)+yn.bottomRows(0));
+      } else if (k>=1) {
+	y(k,0) = yn(k,0) - yn(k,0) * dt/dx * (yn(k,0) - yn(k-1)) + nu*dt/pow(dx,2)*(yn(k+1,0)-2*yn(k,0)+yn(k-1));
+      } else {
+	std::cout << "Error determining previous row." << std::endl;
+	return;
+      }
+	
+      
+    }
+    
+    y.bottomRows(0) = yn.bottomRows(0) - yn.bottomRows(0) * dt/dx * (yn.bottomRows(0)-yn.bottomRows(1)) + nu*dt/pow(dx,2)*(yn(0,0)-2*yn.bottomRows(0)+yn.bottomRows(2));
+    
+  }
+  
+  std::cout << y << std::endl;
+  
+    
+  /* 
     ofstream writexdata((dir + "output.dat").c_str(), ios::out | ios::trunc);
     for (int i=0;i<nx;i++){
         writexdata << x(i) << "\t" << y(i) << endl;
     }
 
-    writexdata.close();
+    writexdata.close(); */
   
 }

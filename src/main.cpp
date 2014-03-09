@@ -3,6 +3,7 @@
 #include "nonlin1d.h"
 #include "diffusion1d.h"
 #include "burgers.h"
+#include "arrayops.h"
 
 using namespace std;
 
@@ -11,8 +12,8 @@ int main()
     int selection;
 
     for (;;) {
-        cout << "Please select a program (int between 1-4 inclusive): ";
-        if ((cin >> selection) && (selection > 0) && (selection < 5)) {
+        cout << "Please select a program (int between 1-5 inclusive): ";
+        if ((cin >> selection) && ((selection > 0) && (selection < 6))) {
             switch (selection) {
                 case 1:
                     lin1d();
@@ -28,6 +29,10 @@ int main()
 		
 		case 4:
 		    burgers();
+		break;
+		
+		case 5:
+		    arrayops();
 		break;
 
                 default:

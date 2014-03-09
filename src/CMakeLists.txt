@@ -11,6 +11,8 @@ set(oned_source_files
     diffusion1d.h
     burgers.cpp
     burgers.h
+    arrayops.cpp
+    arrayops.h
     )
 
 set(core_source_files

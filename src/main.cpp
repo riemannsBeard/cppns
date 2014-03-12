@@ -4,6 +4,8 @@
 #include "diffusion1d.h"
 #include "burgers.h"
 #include "arrayops.h"
+#include "lin2d.h"
+
 
 using namespace std;
 
@@ -12,8 +14,8 @@ int main()
     int selection;
 
     for (;;) {
-        cout << "Please select a program (int between 1-5 inclusive): ";
-        if ((cin >> selection) && ((selection > 0) && (selection < 6))) {
+        cout << "Please select a program (int between 1-6 inclusive): ";
+        if ((cin >> selection) && ((selection > 0) && (selection < 7))) {
             switch (selection) {
                 case 1:
                     lin1d();
@@ -34,6 +36,10 @@ int main()
 		case 5:
 		    arrayops();
 		break;
+		
+		case 6:
+		    lin2d();
+		break;
 
                 default:
                     cout << "Something went horribly wrong.";
@@ -41,7 +47,7 @@ int main()
 
             break;
         } else {
-            cout << "Please enter a valid integer betwen 1 and 4 inclusive:"  << endl;
+            cout << "Please enter a valid integer betwen 1 and 6 inclusive:"  << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }

@@ -13,6 +13,8 @@ set(oned_source_files
     burgers.h
     arrayops.cpp
     arrayops.h
+    lin2d.cpp
+    lin2d.h
     )
 
 set(core_source_files

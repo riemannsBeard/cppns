@@ -21,9 +21,18 @@ void lin2d() {
   
   Eigen::ArrayXXd un;
   un.setOnes(ny,nx);
+    
+  u.block(.5/dy, .5/dx, 1/dy+1-.5/dy, 1/dx+1-.5/dx) = Eigen::ArrayXXd::Constant(1/dy+1-.5/dy,1/dx+1-.5/dx,2);
   
-  //u.block(.5/dy, .5/dx, (dy+1)-.5/dy, (dx+1)-.5/dx) < 2;
-  
-  std::cout << u << std::endl;
+  for(int i=0;i<nt+1;i++) {
+    un << u;
+    //u.block(1,1,ny-1,nx-1) = un.block(1,1,ny-1,nx-1)-(c*dt/dx*(un.block(1,1,ny-1,nx-1)-un.block(0,1,ny-2,nx-1)))-(c*dt/dy*(un.block(1,1,ny-1,nx-1)-un.block(1,0,ny-1,nx-2)));
+    //u.block(0,0,1,nx-1) = Eigen::ArrayXXd::Constant(1,nx-1,1);
+    //u.block(ny-1,0,1,nx-1) = Eigen::ArrayXXd::Constant(1,nx-1,1);
+    //u.block(0,0,ny-1,1) = Eigen::ArrayXXd::Constant(ny-1,1,1);
+    //u.block(0,nx-1,ny-1,1) = Eigen::ArrayXXd::Constant(ny-1,1,1);
+    //std::cout << "Time step!" << std::endl;
+  }
+    
 }
 

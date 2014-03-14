@@ -15,6 +15,8 @@ set(oned_source_files
     arrayops.h
     lin2d.cpp
     lin2d.h
+    nonlin2d.cpp
+    nonlin2d.h
     )
 
 set(core_source_files

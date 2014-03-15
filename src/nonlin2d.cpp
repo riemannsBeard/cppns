@@ -27,7 +27,9 @@ void nonlin2d() {
   Eigen::ArrayXXd v;
   v.setOnes(ny,nx);
   Eigen::ArrayXXd un;
+  un.setOnes(ny,nx);
   Eigen::ArrayXXd vn;
+  vn.setOnes(ny,nx);
     
   u.block(.5/dy, .5/dx, 1/dy+1-.5/dy, 1/dx+1-.5/dx) = Eigen::ArrayXXd::Constant(1/dy+1-.5/dy,1/dx+1-.5/dx,2);
   v.block(.5/dy, .5/dx, 1/dy+1-.5/dy, 1/dx+1-.5/dx) = Eigen::ArrayXXd::Constant(1/dy+1-.5/dy,1/dx+1-.5/dx,2);

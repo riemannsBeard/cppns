@@ -5,8 +5,8 @@
 #include "burgers.h"
 #include "arrayops.h"
 #include "lin2d.h"
-#include "lin2dloop.h"
 #include "nonlin2d.h"
+#include "diffusion2d.h"
 
 
 using namespace std;
@@ -44,11 +44,11 @@ int main()
 		break;
 		
 		case 7:
-		    lin2dloop();
-		break;		
+		    nonlin2d();
+		break;
 		
 		case 8:
-		    nonlin2d();
+		    diffusion2d();
 		break;
 
                 default:

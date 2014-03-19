@@ -3,9 +3,9 @@
 using namespace std;
 
 void diffusion2d() {
-  double nx = 81;
-  double ny = 81;
-  double nt = 50;
+  double nx = 31;
+  double ny = 31;
+  double nt = 17;
   double nu = .5;
   double dx = 2/(nx-1);
   double dy = 2/(ny-1);
@@ -31,7 +31,7 @@ void diffusion2d() {
   for(int i=0;i<nt+1;i++) {
     un << u;
     
-    u.block(1,1,ny-2,nx-2) = un.block(1,1,ny-2,nx-2)+nu*pow(dt/dx,2)*(un.block(2,1,ny-2,nx-2)-2*un.block(1,1,ny-2,nx-2)+un.block(0,1,ny-2,nx-2))+nu*pow(dt/dx,2)*(un.block(1,2,ny-2,ny-2)-2*un.block(1,1,ny-2,nx-2)+un.block(1,0,ny-2,nx-2));
+    u.block(1,1,ny-2,nx-2) = un.block(1,1,ny-2,nx-2)+nu*dt/pow(dx,2)*(un.block(2,1,ny-2,nx-2)-2*un.block(1,1,ny-2,nx-2)+un.block(0,1,ny-2,nx-2))+nu*dt/pow(dy,2)*(un.block(1,2,ny-2,ny-2)-2*un.block(1,1,ny-2,nx-2)+un.block(1,0,ny-2,nx-2));
   
     // Gives boundary condition
     u.block(0,0,1,nx-1) = Eigen::ArrayXXd::Constant(1,nx-1,1);

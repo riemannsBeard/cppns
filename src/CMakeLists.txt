@@ -19,6 +19,8 @@ set(oned_source_files
     nonlin2d.h
     diffusion2d.cpp
     diffusion2d.h
+    burgers2d.cpp
+    burgers2d.h
     )
 
 set(core_source_files

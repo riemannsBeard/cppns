@@ -40,7 +40,9 @@ void burgers2d() {
     un << u;
     vn << v;
     
-    u.block(1,1,ny-2,nx-2) = un.block(1,1,ny-2,nx-2)+nu*dt/pow(dx,2)*(un.block(2,1,ny-2,nx-2)-2*un.block(1,1,ny-2,nx-2)+un.block(0,1,ny-2,nx-2))+nu*dt/pow(dy,2)*(un.block(1,2,ny-2,ny-2)-2*un.block(1,1,ny-2,nx-2)+un.block(1,0,ny-2,nx-2));
+    u.block(1,1,ny-2,nx-2) = un.block(1,1,ny-2,nx-2) - dt/dx*un.block(1,1,ny-2,nx-2)*(un.block(1,1,ny-2,nx-2)-un.block(0,1,ny-2,nx-2))-dt/dy*vn.block(1,1,ny-2,nx-2)*(un.block(1,1,ny-2,nx-2)-un.block(1,0,ny-2,nx-2))+nu*dt/pow(dx,2)*(un.block(2,1,ny-2,nx-2)-2*un.block(1,1,ny-2,nx-2)+un.block(0,1,ny-2,nx-2))+nu*dt/pow(dy,2)*(un.block(1,2,ny-2,nx-2)-2*un.block(1,1,ny-2,nx-2)+un.block(1,0,ny-2,nx-2));
+    
+    v.block(1,1,ny-2,nx-2) = vn.block(1,1,ny-2,nx-2) - dt/dx*un.block(1,1,ny-2,nx-2)*(vn.block(1,1,ny-2,nx-2)-vn.block(0,1,ny-2,nx-2))-dt/dy*vn.block(1,1,ny-2,nx-2)*(vn.block(1,1,ny-2,nx-2)-vn.block(1,0,ny-2,nx-2))+nu*dt/pow(dx,2)*(vn.block(2,1,ny-2,nx-2)-2*vn.block(1,1,ny-2,nx-2)+vn.block(0,1,ny-2,nx-2))+nu*dt/pow(dy,2)*(vn.block(1,2,ny-2,nx-2)-2*vn.block(1,1,ny-2,nx-2)+vn.block(1,0,ny-2,nx-2));
   
     // Gives boundary condition
     u.block(0,0,1,nx-1) = Eigen::ArrayXXd::Constant(1,nx-1,1);
@@ -48,7 +50,7 @@ void burgers2d() {
     u.block(0,0,ny-1,1) = Eigen::ArrayXXd::Constant(ny-1,1,1);
     u.block(0,nx-1,ny-1,1) = Eigen::ArrayXXd::Constant(ny-1,1,1);
     
-        // Gives boundary condition
+    // Gives boundary condition
     v.block(0,0,1,nx-1) = Eigen::ArrayXXd::Constant(1,nx-1,1);
     v.block(ny-1,0,1,nx-1) = Eigen::ArrayXXd::Constant(1,nx-1,1);
     v.block(0,0,ny-1,1) = Eigen::ArrayXXd::Constant(ny-1,1,1);

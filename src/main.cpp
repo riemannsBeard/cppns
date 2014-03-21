@@ -17,7 +17,7 @@ int main()
     int selection;
 
     for (;;) {
-        cout << "Please select a program (int between 1-8 inclusive): ";
+        cout << "Please select a program (int between 1-9 inclusive): ";
         if ((cin >> selection) && ((selection > 0) && (selection < 10))) {
             switch (selection) {
                 case 1:

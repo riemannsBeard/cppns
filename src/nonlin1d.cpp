@@ -12,6 +12,8 @@ void nonlin1d()
   Eigen::ArrayXd u(nx);
   u.setOnes(nx); // Set ones everywhere
   u.block(.5/dx,0,1/dx+1-.5/dx,1) = Eigen::ArrayXd::Constant(1/dx+1-.5/dx,1,2); // Starting conditions
+  
+  std::cout << u << std::endl;
 
   Eigen::ArrayXd x(nx);
   x.setLinSpaced(nx,0,2);

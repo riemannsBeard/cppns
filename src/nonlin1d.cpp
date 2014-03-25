@@ -13,8 +13,6 @@ void nonlin1d()
   u.setOnes(nx); // Set ones everywhere
   u.block(.5/dx,0,1/dx+1-.5/dx,1) = Eigen::ArrayXd::Constant(1/dx+1-.5/dx,1,2); // Starting conditions
   
-  std::cout << u << std::endl;
-
   Eigen::ArrayXd x(nx);
   x.setLinSpaced(nx,0,2);
   
@@ -24,9 +22,10 @@ void nonlin1d()
   for (int n=0;n<nt;n++)
   {
     un << u;
+    std::cout  << "Time step: " << n << u << std::endl<< std::endl;
       for (int i=1;i<nx;i++) // From row 1, apparently we can't touch the left side wall (yet, maybe in 2d or diffusion)
       {
-	  u(i) = un(i)-un(i)*dt/dx*(u(i)-u(i-1));
+	  u(i) = un(i)-un(i)*dt/dx*(un(i)-un(i-1));
       }
   }
 

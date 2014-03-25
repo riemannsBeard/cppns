@@ -21,6 +21,8 @@ set(oned_source_files
     diffusion2d.h
     burgers2d.cpp
     burgers2d.h
+    laplace2d.cpp
+    laplace2d.h
     )
 
 set(core_source_files

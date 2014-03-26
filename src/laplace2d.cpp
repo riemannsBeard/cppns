@@ -47,6 +47,8 @@ void laplace2d() {
     p.block(0,nx-1,ny,1) = y.block(0,0,ny,1);
     p.block(0,0,1,nx) = p.block(1,0,1,nx);
     p.block(ny-1,0,1,nx) = p.block(ny-2,0,1,nx);
+   
+    linorm = (p.cwiseAbs()-pn.cwiseAbs()).sum()/(pn.cwiseAbs()).sum();
     
   }
   

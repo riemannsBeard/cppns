@@ -23,6 +23,8 @@ set(oned_source_files
     burgers2d.h
     laplace2d.cpp
     laplace2d.h
+    poisson2d.cpp
+    poisson2d.h
     )
 
 set(core_source_files

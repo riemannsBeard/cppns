@@ -9,6 +9,7 @@
 #include "diffusion2d.h"
 #include "burgers2d.h"
 #include "laplace2d.h"
+#include "poisson2d.h"
 
 
 using namespace std;
@@ -18,8 +19,8 @@ int main()
     int selection;
 
     for (;;) {
-        cout << "Please select a program (int between 1-10 inclusive): ";
-        if ((cin >> selection) && ((selection > 0) && (selection < 11))) {
+        cout << "Please select a program (int between 1-11 inclusive): ";
+        if ((cin >> selection) && ((selection > 0) && (selection < 12))) {
             switch (selection) {
                 case 1:
                     lin1d();
@@ -60,6 +61,10 @@ int main()
 		case 10:
 		    laplace2d();
 		break;
+		
+		case 11:
+		    poisson2d();
+		break;
 
                 default:
                     cout << "Something went horribly wrong.";
@@ -67,7 +72,7 @@ int main()
 
             break;
         } else {
-            cout << "Please enter a valid integer betwen 1 and 10 inclusive:"  << endl;
+            cout << "Please enter a valid integer betwen 1 and 11 inclusive:"  << endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }

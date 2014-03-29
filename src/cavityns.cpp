@@ -8,10 +8,10 @@ Eigen::ArrayXXd presPoisson(Eigen::ArrayXXd *p, Eigen::ArrayXXd *b)
 }
 
 void cavityns() {
-  double nx = 5;
-  double ny = 5;
-  double nt = 500;
-  double nit=50;
+  double nx = 10;
+  double ny = 10;
+  double nt = 10;
+  double nit=5;
   double c = 1;
   double dx = 2.0/(nx-1);
   double dy = 2.0/(ny-1);
@@ -50,21 +50,21 @@ void cavityns() {
   Eigen::ArrayXXd pn;
   pn.setZero(ny,nx);
 
-  b.block(1,1,ny-2,nx-2)=rho*(1/dt*((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)+(v.block(1,2,ny-2,nx-2)-v.block(1,0,ny-2,nx-2))/(2*dy))-pow(((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)),2)-2*((u.block(1,2,ny-2,nx-2)-u.block(1,0,ny-2,nx-2))/(2*dy)*(v.block(2,1,ny-2,nx-2)-v.block(0,1,ny-2,nx-2))/(2*dx))-pow(((v.block(1,2,ny-2,nx-2)-v.block(1,0,ny-2,nx-2))/(2*dy)),2));
-  
-  for(int q=0;q<nit;q++) {
-    pn << p;
-    p.block(1,1,ny-2,nx-2)=((pn.block(2,1,ny-2,nx-2)+pn.block(0,1,ny-2,nx-2))*pow(dy,2)+(pn.block(1,2,ny-2,nx-2)+pn.block(1,0,ny-2,nx-2))*pow(dx,2))/(2*(pow(dx,2)+pow(dy,2)))-pow(dx,2)*pow(dy,2)/(2*(pow(dx,2)+pow(dy,2)))*b.block(1,1,nx-2,ny-2);
-    
-    p.block(ny-1,0,1,nx) = p.block(ny-2,0,1,nx);
-    p.block(0,0,1,nx) = p.block(1,0,1,nx);
-    p.block(0,0,ny,1) = p.block(0,1,ny,1);
-    p.block(0,nx-1,ny,1) = Eigen::ArrayXXd::Zero(ny,1);
-  }
-  
   for(int n=0;n<nt;n++) {
     un << u;
     vn << v;
+    
+    b.block(1,1,ny-2,nx-2)=rho*(1/dt*((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)+(v.block(1,2,ny-2,nx-2)-v.block(1,0,ny-2,nx-2))/(2*dy))-pow(((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)),2)-2*((u.block(1,2,ny-2,nx-2)-u.block(1,0,ny-2,nx-2))/(2*dy)*(v.block(2,1,ny-2,nx-2)-v.block(0,1,ny-2,nx-2))/(2*dx))-pow(((v.block(1,2,ny-2,nx-2)-v.block(1,0,ny-2,nx-2))/(2*dy)),2));
+    
+      for(int q=0;q<nit;q++) {
+	pn << p;
+	p.block(1,1,ny-2,nx-2)=((pn.block(2,1,ny-2,nx-2)+pn.block(0,1,ny-2,nx-2))*pow(dy,2)+(pn.block(1,2,ny-2,nx-2)+pn.block(1,0,ny-2,nx-2))*pow(dx,2))/(2*(pow(dx,2)+pow(dy,2)))-pow(dx,2)*pow(dy,2)/(2*(pow(dx,2)+pow(dy,2)))*b.block(1,1,nx-2,ny-2);
+		
+	p.block(ny-1,0,1,nx) = p.block(ny-2,0,1,nx);
+	p.block(0,0,1,nx) = p.block(1,0,1,nx);
+	p.block(0,0,ny,1) = p.block(0,1,ny,1);
+	p.block(0,nx-1,ny,1) = Eigen::ArrayXXd::Zero(ny,1);	
+      }
     
     u.block(1,1,ny-2,nx-2)=un.block(1,1,ny-2,nx-2)-un.block(1,1,ny-2,nx-2)*dt/dx*(un.block(1,1,ny-2,nx-2)-un.block(0,1,ny-2,nx-2))-vn.block(1,1,ny-2,nx-2)*dt/dx*(un.block(1,1,ny-2,nx-2)-un.block(0,1,ny-2,nx-2))-dt/(2*rho*dx)*(p.block(1,2,ny-2,nx-2)-p.block(1,0,ny-2,nx-2))+nu*(dt/pow(dx,2)*(un.block(2,1,ny-2,nx-2)-2*un.block(1,1,ny-2,nx-2)+un.block(1,0,ny-2,nx-2))+dt/pow(dy,2)*2*(un.block(1,2,ny-2,nx-2)-2*un.block(1,1,ny-2,nx-2)+un.block(1,0,ny-2,nx-2)));
     
@@ -72,17 +72,14 @@ void cavityns() {
    
     u.block(0,0,1,nx) = Eigen::ArrayXXd::Zero(1,nx);
     u.block(0,0,ny,1) = Eigen::ArrayXXd::Zero(ny,1);
-    u.block(0,nx-1,ny,1) = Eigen::ArrayXXd::Zero(ny,1);
+    u.block(0,nx-1,ny,1) = Eigen::ArrayXXd::Ones(ny,1);
     v.block(0,0,1,nx) = Eigen::ArrayXXd::Zero(1,nx);
     v.block(ny-1,0,1,nx) = Eigen::ArrayXXd::Zero(1,nx);
     v.block(0,0,ny,1) = Eigen::ArrayXXd::Zero(ny,1);
     v.block(0,nx-1,ny,1) = Eigen::ArrayXXd::Zero(ny,1);
     u.block(ny-1,0,1,nx) = Eigen::ArrayXXd::Zero(1,nx);
-    
-    
-        
   }
-  
+ 
   Eigen::Map<Eigen::ArrayXd> outputX(X.data(),ny*nx);
   Eigen::Map<Eigen::ArrayXd> outputY(Y.data(),ny*nx);
   Eigen::Map<Eigen::ArrayXd> outputu(u.data(),ny*nx);
@@ -95,7 +92,5 @@ void cavityns() {
       writefile << outputX(k) << "\t"  << outputY(k) << "\t"  << outputu(k) << "\t" << outputv(k) << endl;
   }
   writefile.close();
-
-  
 
 }

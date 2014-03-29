@@ -7,15 +7,12 @@ void poisson2d() {
   double ny = 50;
   double nt = 100;
   double xmin = 0;
-  double xmax = 2;
+  double xmax = 1;
   double ymin = 0;
-  double ymax = 1;
+  double ymax = 2;
   
-  //double c = 1;
   double dx = (xmax-xmin)/(nx-1);
   double dy = (ymax-ymin)/(ny-1);
-  //double linorm_target = .01;
-  //double linorm = 1;
   
   // Make an output folder
   std::string dir = "step10/";
@@ -45,15 +42,13 @@ void poisson2d() {
   
   for(int i=0;i<nt;i++) {
     pn << p;
-    //p.block(1,1,ny-2,nx-2) = (pow(dy,2)/(2*(pow(dx,2)+pow(dy,2)))*(pn.block(2,1,ny-1,nx-1)+pn.block(0,1,ny-1,nx-1))+pow(dx,2)/(2*(pow(dx,2)+pow(dy,2))*pn.block(1,0,ny-1,nx-1)+pn.block(1,0,ny-1,nx-1))-b.block(1,1,ny-1,nx-1)*pow(dx,2)*pow(dy,2)/(2*(pow(dx,2)+pow(dy,2))));
-    //(pow(dy,2)*(pn.block(2,1,ny-2,nx-2)+pn.block(0,1,ny-2,nx-2))+pow(dx,2)*(pn.block(1,2,ny-2,nx-2)+pn.block(1,0,ny-2,nx-2)))/(2*(pow(dx,2)+pow(dy,2)));   
+    p.block(1,1,ny-2,nx-2)=(pow(dy,2)/(2*(pow(dx,2)+pow(dy,2)))*(pn.block(2,1,ny-2,nx-2)+pn.block(0,1,ny-2,nx-2))+pow(dx,2)/(2*(pow(dx,2)+pow(dy,2)))*(pn.block(1,2,ny-2,nx-2)+pn.block(1,0,ny-2,nx-2))-b.block(1,1,ny-2,nx-2)*pow(dx,2)*pow(dy,2)/(2*(pow(dx,2)+pow(dy,2))));
+    
     //Set Boundary Conditions
     p.block(0,0,ny,1) = Eigen::ArrayXXd::Constant(ny,1,0);
     p.block(ny-1,0,1,nx) = Eigen::ArrayXXd::Constant(1,nx,0);
     p.block(0,0,1,nx) = Eigen::ArrayXXd::Constant(1,nx,0);
     p.block(0,nx-1,ny,1) = Eigen::ArrayXXd::Constant(ny,1,0);
-   
-    //linorm = (p.cwiseAbs()-pn.cwiseAbs()).sum()/(pn.cwiseAbs()).sum();
     
   }
   

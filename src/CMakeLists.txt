@@ -25,6 +25,8 @@ set(oned_source_files
     laplace2d.h
     poisson2d.cpp
     poisson2d.h
+    cavityns.cpp
+    cavityns.h
     )
 
 set(core_source_files

@@ -5,6 +5,7 @@
 #include <Eigen/Dense>
 #include <fstream>
 #include <sys/stat.h>
+#include <stdlib.h>
 
 void lin1d();
 

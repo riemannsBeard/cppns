@@ -21,9 +21,6 @@ void diffusion1d()
 
   Eigen::VectorXd un(nx);
 
-
-  mkdir(dir.c_str(),0755); //Make a folder to store results in
-
   string step;
 
   for (int j=0;j<nt;j++) // From column 2 (Eigen is 0-indexed, so really column 3!) to end (of matrix, nt+2)

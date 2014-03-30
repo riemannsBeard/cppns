@@ -14,7 +14,6 @@ void lin2d() {
   
   // Make an output folder
   std::string dir = "step5/";
-  mkdir(dir.c_str(),0755); //Make a folder to store results in
   
   Eigen::ArrayXd x; // Array containing our x values
   x.setLinSpaced(nx,0,2);
@@ -29,11 +28,6 @@ void lin2d() {
   un.setOnes(ny,nx);
     
   u.block(.5/dy, .5/dx, 1/dy+1-.5/dy, 1/dx+1-.5/dx) = Eigen::ArrayXXd::Constant(1/dy+1-.5/dy,1/dx+1-.5/dx,2);
-  
-  /*std::cout << ny-1 << std::endl;
-  std::cout << nx-1 << std::endl;
-  std::cout << un.block(0,1,ny-1,nx-1).rows() << std::endl;
-  std::cout << un.block(0,1,ny-1,ny-1).cols() << std::endl;*/
   
   for(int i=0;i<nt+1;i++) {
     un << u;

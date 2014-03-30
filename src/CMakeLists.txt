@@ -31,7 +31,18 @@ set(oned_source_files
 
 set(core_source_files
     main.cpp)
-    
+file(COPY step1 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step2 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step3 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step4 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step5 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step6 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step7 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step8 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step9 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step10 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step11 DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY step12 DESTINATION ${CMAKE_BINARY_DIR})
 include_directories(/usr/include/eigen3/)
 add_executable(cppns ${core_source_files} ${oned_source_files})
 add_subdirectory(util)

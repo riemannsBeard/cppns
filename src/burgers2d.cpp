@@ -15,7 +15,6 @@ void burgers2d() {
   
   // Make an output folder
   std::string dir = "step8/";
-  mkdir(dir.c_str(),0755); //Make a folder to store results in
   
   Eigen::ArrayXd x; // Array containing our x values
   x.setLinSpaced(nx,0,2);

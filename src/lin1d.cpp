@@ -14,13 +14,9 @@ void lin1d()
   Eigen::ArrayXd u(nx); // Contructs new eigen vector object called u, of size nx
   u.setOnes(nx); // Set to ones
   u.block(.5/dx,0,1/dx+1-.5/dx,1) = Eigen::ArrayXd::Constant(1/dx+1-.5/dx,1,2);
-  
-  std::cout << u << std::endl;
 
   Eigen::ArrayXd x; // A vector to hold our x values
   x.setLinSpaced(nx,0,2);
-
-  mkdir("step1",0755); //0755 is the permissions code. This works on linux only
 
   ofstream writefile("step1/data-before.dat", ios::out | ios::trunc);
 
@@ -53,7 +49,4 @@ void lin1d()
   writefile2.close();
 
   u.resize(0); // Free the memory
-
-
-
 }

@@ -29,8 +29,6 @@ void nonlin1d()
       }
   }
 
-  mkdir("step2",0755); //0755 is the permissions code. This works on linux only
-
   ofstream writefile("step2/data.dat", ios::out | ios::trunc);
     for (int j=0;j<nx;j++)
     {

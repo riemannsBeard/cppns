@@ -27,6 +27,8 @@ set(oned_source_files
     poisson2d.h
     cavityns.cpp
     cavityns.h
+    channelns.cpp
+    channelns.h
     )
 
 set(core_source_files

@@ -43,8 +43,13 @@ You will be prompted for a number corresponding to which step you wish to run. T
 7. Step 6: 2D Nonlinear Convection
 8. Step 7: 2D Diffusion
 9. Step 8: 2D Burgers
-10. To come...
+10. Step 9: 2D Laplace
+11. Step 10: 2D Poisson
+12. Step 11: Cavity Flow*
+13. Step 12: Channel Flow*
 
 The results are output into a folder corresponding to the step name (i.e. the plot and data for step 2 are created in the folder step2/). Included in the src/ folder are corresponding gnuplot scripts of the name "step#-plot.p" where # is the corresponding step. Most of these files are actually identical (all 1Ds the same, all 2Ds the same, etc.). Just copy this plot folder into your data folder and run "gnuplot step8-plot.p" to generate an SVG file with the plot.
 
 Please let me know on github if you have any issues.
+
+*These steps haven't been fully fleshed out yet (i.e. not giving results or giving bad results).

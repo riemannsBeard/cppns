@@ -21,8 +21,9 @@ int main()
     int selection;
 
     for (;;) {
-        cout << "Please select a program (number between 1-13 inclusive): ";
-        if ((cin >> selection) && ((selection > 0) && (selection < 14))) {
+        cout << "Please select a program (number between 1-13 inclusive) or 99 for help: ";
+        if ((cin >> selection) && (((selection > 0) && (selection < 14)))||(selection == 99)) {
+	  
             switch (selection) {
                 case 1:
                     lin1d();
@@ -74,6 +75,14 @@ int main()
 		
 		case 13:
 		    channelns();
+		break;
+		
+		case 99:
+		    std::cout << "1: Step1 Linear 1D \t2: Step2 Nonlinear 1D \t3: Step3 Diffusion 1D";
+		    std::cout << "\n4: Step4 Burgers 1D \t5: ArrayOps Test \t6: Step5 Linear 2D";
+		    std::cout << "\n7: Step6 Nonlinear 2D \t8: Step7 Diffusion 2D \t9: Step8 Burgers 2D";
+		    std::cout << "\n10: Step9 Laplace 2D \t11: Step10 Poisson 2D \t12: Step11 Cavity Flow";
+		    std::cout << "\n13: Step12 Channel Flow" << std::endl;
 		break;
 
                 default:

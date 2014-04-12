@@ -2,12 +2,25 @@
 
 using namespace std;
 
-Eigen::ArrayXXd presPoisson(Eigen::ArrayXXd *p, Eigen::ArrayXXd *b)
+/*Eigen::ArrayXXd presPoisson(Eigen::ArrayXXd p, double dx, double dy, Eigen::ArrayXXd b)
 {
-
+  pn << p;
+  
+  for(int q;q<nit;q++) {
+    pn << p;
+    
+  }
 }
 
+Eigen::ArrayXXd buildUpB(Eigen::ArrayXXd b, double rho, double dt, Eigen::ArrayXXd u, Eigen::ArrayXXd v, double dx, double dy) {
+  
+    b.block(1,1,ny-2,nx-2)=rho*(1/dt*((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)+(v.block(1,2,ny-2,nx2-)-v.block(1,0,ny-2,nx-2))/(2*dy))-pow(((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)),2)-2*((u.block(1,2,ny-2,nx-2)-u.block(1,0,ny-2,nx-2))/(2*dy)*(v.block(2,1,ny-2,nx-2)-v.block(0,1,ny-2,nx-2))/(2*dx))-pow(((v.block(1,2,ny-2,nx-2)-v.block(1,0,ny-2,nx-2))/(2*dy)),2));
+    
+    return b;
+}*/
+
 void cavityns() {
+
   double nx = 10;
   double ny = 10;
   double nt = 10;
@@ -18,6 +31,7 @@ void cavityns() {
   double rho = 1;
   double nu = .1;
   double dt = .001;  
+
   
   // Make an output folder
   std::string dir = "step11/";
@@ -54,6 +68,8 @@ void cavityns() {
     vn << v;
     
     b.block(1,1,ny-2,nx-2)=rho*(1/dt*((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)+(v.block(1,2,ny-2,nx-2)-v.block(1,0,ny-2,nx-2))/(2*dy))-pow(((u.block(2,1,ny-2,nx-2)-u.block(0,1,ny-2,nx-2))/(2*dx)),2)-2*((u.block(1,2,ny-2,nx-2)-u.block(1,0,ny-2,nx-2))/(2*dy)*(v.block(2,1,ny-2,nx-2)-v.block(0,1,ny-2,nx-2))/(2*dx))-pow(((v.block(1,2,ny-2,nx-2)-v.block(1,0,ny-2,nx-2))/(2*dy)),2));
+    
+    pn << p;
     
       for(int q=0;q<nit;q++) {
 	pn << p;
